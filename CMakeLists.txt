@@ -55,6 +55,8 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
 # Find and include SDL2 library
+list(APPEND CMAKE_PREFIX_PATH "D:/SDL2-2.30.8/")
+set(SDL2_NO_MWINDOWS 1) # 设置为0的话不显示控制台,也就看不到打印信息
 find_package(SDL2 REQUIRED)
 
 # Remove ARM-specific compile and linker options
@@ -142,13 +144,13 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_options(lvgl PRIVATE
         -pedantic-errors
         -Wall
-        -Wclobbered
+        # -Wclobbered
         -Wdeprecated
         -Wdouble-promotion
         -Wempty-body
         -Wextra
         -Wformat-security
-        -Wmaybe-uninitialized
+        # -Wmaybe-uninitialized
         # -Wmissing-prototypes
         -Wpointer-arith
         -Wmultichar
@@ -163,6 +165,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         -Wunreachable-code
         -Wfloat-conversion
         -Wstrict-aliasing
+        -Wno-implicit-function-declaration #增加该项,不然会报memmove找不到
     )
 
 if (ASAN)
