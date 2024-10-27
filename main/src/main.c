@@ -92,7 +92,7 @@ int main(int argc, char **argv)
   lv_init();
 
   /*Initialize the HAL (display, input devices, tick) for LVGL*/
-  hal_init(320, 480);
+  hal_init(800, 480);
 
   #if LV_USE_OS == LV_OS_NONE
 
