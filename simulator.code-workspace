@@ -26,7 +26,8 @@
 		"cmake.configureOnOpen": true,
 		"files.associations": {
 			"glob.h": "c",
-			"lvgl.h": "c"
+			"lvgl.h": "c",
+			"unistd.h": "c"
 		},
 	},
 	// tasks.json section
@@ -95,7 +96,7 @@
 			},
 			{
 				"name": "Debug LVGL demo with LLVM",
-				"type": "cppdbg",
+				"type": "lldb",
 				"request": "launch",
 		        "program": "${workspaceFolder}/bin/main",
 				"args": [],

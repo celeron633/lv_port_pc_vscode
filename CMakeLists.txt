@@ -35,6 +35,11 @@ else()
     set(FREERTOS_SOURCES "")  # No FreeRTOS sources if FreeRTOS is disabled
 endif()
 
+include_directories(${PROJECT_SOURCE_DIR}/User)
+file(GLOB USER_SOURCES
+    "${PROJECT_SOURCE_DIR}/User/*.c"
+)
+
 # Main include files of the project
 include_directories(${PROJECT_SOURCE_DIR}/main/inc)
 
@@ -88,6 +93,7 @@ else()
     add_executable(main
         ${PROJECT_SOURCE_DIR}/main/src/main.c
         ${PROJECT_SOURCE_DIR}/main/src/mouse_cursor_icon.c
+        ${USER_SOURCES}
     )
 endif()
 

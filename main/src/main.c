@@ -18,6 +18,10 @@
 // #include "glob.h"
 #include LV_SDL_INCLUDE_PATH
 
+#include "lv_obj_test1.h"
+#include "pthread.h"
+#include "unistd.h"
+
 /*********************
  *      DEFINES
  *********************/
@@ -35,7 +39,7 @@ static lv_display_t * hal_init(int32_t w, int32_t h);
  *  STATIC VARIABLES
  **********************/
 
-/********************** 
+/**********************
  *      MACROS
  **********************/
 
@@ -44,6 +48,18 @@ static lv_display_t * hal_init(int32_t w, int32_t h);
  **********************/
 
 extern void freertos_main(void);
+
+// void *timer_loop_func(void *args)
+// {
+//   (void)args;
+
+//   while(1) {
+//     /* Periodically call the lv_task handler.
+//      * It could be done in a timer interrupt or an OS task too.*/
+//     lv_timer_handler();
+//     usleep(5 * 1000);
+//   }
+// }
 
 /*********************
  *      DEFINES
@@ -56,6 +72,8 @@ extern void freertos_main(void);
 /**********************
  *      VARIABLES
  **********************/
+
+// pthread_t timer_loop_thread;
 
 /**********************
  *  STATIC PROTOTYPES
@@ -77,8 +95,16 @@ int main(int argc, char **argv)
   hal_init(320, 480);
 
   #if LV_USE_OS == LV_OS_NONE
- 
-  lv_demo_widgets();
+
+  // lv_demo_widgets();
+  lv_obj_test1();
+
+  // loop单独放一个线程会卡死
+  // timer handler单独起一个线程
+  // pthread_create(&timer_loop_thread, NULL, timer_loop_func, NULL);
+  // 阻止退出
+  // pthread_join(timer_loop_thread, NULL);
+
 
   while(1) {
     /* Periodically call the lv_task handler.
@@ -90,7 +116,7 @@ int main(int argc, char **argv)
   #elif LV_USE_OS == LV_OS_FREERTOS
 
   /* Run FreeRTOS and create lvgl task */
-  freertos_main();  
+  freertos_main();
 
   #endif
 
